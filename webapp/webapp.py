@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+from PIL import Image
 import ParseConnect
 
 app = Flask(__name__)
@@ -6,7 +7,9 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     campaigns = ParseConnect.getAllCampaigns()
-    return render_template('index.html', campaigns=campaigns)
+    #photos = ParseConnect.getPhotos()
+    path = "../static/images/"
+    return render_template('index.html', campaigns=campaigns, path=path, photos="banner.jpg")
 
 @app.route('/stats')
 def stats():
@@ -18,9 +21,10 @@ def add():
 
 @app.route('/campaign/<int:cid>')
 def campaign(cid):
-    data = ParseConnect.getCampaign(str(cid))
+    data = ParseConnect.getCampaigns(str(cid))
     print data.CampaignName
     return render_template('campaign.html', data=data)
 
 if __name__ == '__main__':
+
     app.run()
