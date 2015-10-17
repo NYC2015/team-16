@@ -38,9 +38,9 @@ def addCampaign(CampID, CampaignName, StartDate, CampaignURL, DefaultPhoto):
     saveToParse(campaign)
 
 #find users
-def findUsers(CampaignName):
-	campid = Campaign.Query.get(CampaignName=CampaignName).CampID
-	userids = UsertoCampaign.Query.all().filter(CampaignID=campid)
+def findUsers(campaignName):
+	#campid = Campaign.Query.get(CampaignName=CampaignName).CampID
+	userids = UsertoCampaign.Query.all().filter(CampaignID=campaignName)
 	users = []
 	for userid in userids:
 		users = chain(users, User.Query.all().filter(UserID=userid.UserID))
@@ -51,19 +51,60 @@ def getAllCampaigns():
 	return Campaign.Query.all()
 
 #Get Campaign
-def getCampaigns(CampaignName):
-	return Campaign.Query.get(CampaignName=CampaignName)
+def getCampaigns(ID):
+	return Campaign.Query.get(CampID = ID)
+	
+#print getCampaigns("2")
 
 #getPhotos	
-def getPhotos(CampaignName):
-	campid = Campaign.Query.get(CampaignName=CampaignName).CampID
-	photoids = UsertoCampaign.Query.all().filter(CampaignID=campid)
+def getPhotosOld(campaignID):
+	#campid = Campaign.Query.get(CampaignName=CampaignName).CampID
+	photoids = UsertoCampaign.Query.all().filter(CampaignID=campaignID)
 	photos = []
 	
 	for photoid in photoids:
 		photos = chain(photos, Photos.Query.all().filter(PhotoID=photoid.PhotoID))
 		
 	return photos
+	
+#get Photo
+def getPhotos():
+	photos = {};
+	for photo in Photos.Query.all():
+		photos[photo.PhotoID] = photo.Photo
+	return photos
+	
+def getMinutes(duration):
+    seconds = duration.seconds
+    minutes = (seconds % 3600) // 60
+    return minutes
+	
+#Return
+def getUserCurve():
+	Time = ["Date Joined"]
+	Users = ["Number of Users"]
+	Volunteers = ["Number of Volunteers"]
+	for user in User.Query.all().order_by("createdAt"):
+		Time = Time + [user.createdAt]
+		
+		count = 0
+		for time in User.Query.all():
+			if time.createdAt.minute == user.createdAt.minute:
+				count = count + 1
+		Users = Users + [count]
+		
+		count = 0
+		for time in User.Query.filter(isVolunteer = True):
+			if time.createdAt.minute == user.createdAt.minute:
+				count = count + 1
+		Volunteers = Volunteers + [count]
+	return [Time, Users, Volunteers]
+	
+print getUserCurve()
+	
+#print(getPhotos()["1"])
+	
+
 	
 #for photo in getPhotos("TestCamp"):
 #	print(photo.Photo)
