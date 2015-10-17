@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block main %}
+    <div class="users">
+      <table class="bordered">
+        <thead>
+          <tr>
+              <th data-field="id">Name</th>
+              <th data-field="name">Email</th>
+              <th data-field="price">State</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Alvin</td>
+            <td>Eclair@gmail.com</td>
+            <td>NY</td>
+          </tr>
+          <tr>
+            <td>Alan</td>
+            <td>Jellybean@gmail.com</td>
+            <td>NJ</td>
+          </tr>
+          <tr>
+            <td>Jonathan</td>
+            <td>Lollipop@gmail.com</td>
+            <td>MA</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+{% endblock %}
