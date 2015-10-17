@@ -57,24 +57,24 @@ def getCampaigns(ID):
 #print getCampaigns("2")
 
 #getPhotos	
-def getPhotosOld(campaignID):
-	#campid = Campaign.Query.get(CampaignName=CampaignName).CampID
+def getPhotos(campaignID):
 	photoids = UsertoCampaign.Query.all().filter(CampaignID=campaignID)
 	photos = []
 	
 	for photoid in photoids:
-		photos = chain(photos, Photos.Query.all().filter(PhotoID=photoid.PhotoID))
-		
+		photos = photos + [str(Photos.Query.get(PhotoID=photoid.PhotoID).Photo.url)]	
 	return photos
 	
+print getPhotos("1")
+
 #get Photo
 def getPhotos():
 	photos = {};
 	for photo in Photos.Query.all():
-		photos[photo.PhotoID] = photo.Photo
+		photos[photo.PhotoID] = photo.Photo.url
 	return photos
 	
-print getPhotos()["1"]
+print getPhotos()
 	
 def getMinutes(duration):
     seconds = duration.seconds
