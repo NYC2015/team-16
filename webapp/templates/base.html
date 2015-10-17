@@ -5,33 +5,37 @@
     <meta charset="UTF-8">
     <title>Rock the Earth</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
     {% endblock %}
 </head>
 <body>
-  <nav>
   {% block navbar %}
-    <div class="nav-wrapper">
+  <nav>
+    <div class="nav-wrapper box">
       <a href="/" class="brand-logo"><img width="200" height="70" src="https://rocktheearth.org/mobius/rtewp-content/themes/simpolio/images/RTE.logo.homepage.3.png"></a>
       <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
         <li><a href="#">Add Campaign</a></li>
-        <li><a href="#">Stats</a></li>
+        <li><a href="/stats">Stats</a></li>
         <li><a href="#">Login</a></li>
       </ul>
       <ul class="side-nav" id="mobile-demo">
         <li><a href="#">Add Campaign</a></li>
-        <li><a href="#">Stats</a></li>
+        <li><a href="stats.html">Stats</a></li>
         <li><a href="#">Login</a></li>
       </ul>
     </div>
   </nav>
   {% endblock %}
-
   {% block main %}
   {% endblock %}
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/js/materialize.min.js"></script>
-  <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+  {% block script %}
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/js/materialize.min.js"></script>
+      <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+  {% endblock %}
 </body>
 </html>

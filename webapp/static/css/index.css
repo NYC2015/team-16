@@ -14,3 +14,20 @@ nav {
 .users {
     margin-top: 50px;
 }
+
+.photo {
+    margin: 20px;
+}
+
+.captitle {
+    font-weight: 300;
+}
+
+.card.small {
+    height: 200px;
+}
+
+.box {
+    width: 90%;
+    margin: 0 auto;
+}

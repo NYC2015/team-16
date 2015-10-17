@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block main %}
+    <div id="chart"></div>
     <div class="users">
       <table class="bordered">
         <thead>
@@ -29,4 +30,15 @@
         </tbody>
       </table>
     </div>
+{% endblock %}
+{% block script %}
+    {{ super() }}
+    <script>
+     var chart = c3.generate({
+        bindto: '#chart',
+        data: {
+          columns: {{ data }}
+        }
+    });
+    </script>
 {% endblock %}
