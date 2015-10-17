@@ -113,11 +113,9 @@ def exportUserExcel(FileLocation):
 	for user in User.Query.all():
 		wr.writerow([user.Name,user.Email ,user.HomeAddress ,user.isVolunteer , user.Occupation])
 		
-	return FileLocation
+	return csvfile
 	
-exportUserExcel("test.csv")
-	
-	
+print dir(exportUserExcel("test.csv"))
 	
 	
 #print getUserCurve()
