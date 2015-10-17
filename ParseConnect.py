@@ -88,7 +88,7 @@ def getUserCurve():
 	
 	for user in User.Query.all().order_by("createdAt"):
 		#Time = Time + [user.createdAt]
-		Time = Time + ["2015-0" + str(ArtificialMonth) + "-1"]
+		Time = Time + ["2015-" + str(ArtificialMonth) + "-1"]
 		
 		count = 0
 		for time in User.Query.all():
@@ -103,6 +103,8 @@ def getUserCurve():
 		Volunteers = Volunteers + [count]
 		ArtificialMonth = ArtificialMonth + 1
 	return [Time, Users, Volunteers]
+	
+print getUserCurve()
 	
 #Convert User Class data into CSV File
 def exportUserExcel(FileLocation):
@@ -121,9 +123,11 @@ def campaignUserStat():
 	campaigns = Campaign.Query.all()
 	numUsers = []
 	for campaign in campaigns:
-		numUsers = numUsers + [[str(campaign.CampID), len(list(UsertoCampaign.Query.all().filter(CampaignID = campaign.CampID)))]]
+		numUsers = numUsers + [[str(campaign.CampaignName), len(list(UsertoCampaign.Query.all().filter(CampaignID = campaign.CampID)))]]
 
 	return numUsers
+	
+print campaignUserStat()
 
 
 #addUser("1", "Test", "email", "address", True ,"Lawyer")
