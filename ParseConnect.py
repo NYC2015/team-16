@@ -1,4 +1,5 @@
 import datetime
+import csv
 from itertools import chain
 from parse_rest.connection import register, ParseBatcher
 # Alias the Object type to make clear is not a normal python Object
@@ -57,7 +58,7 @@ def getCampaigns(ID):
 #print getCampaigns("2")
 
 #getPhotos	
-def getPhotos(campaignID):
+def getCampPhotos(campaignID):
 	photoids = UsertoCampaign.Query.all().filter(CampaignID=campaignID)
 	photos = []
 	
@@ -65,16 +66,12 @@ def getPhotos(campaignID):
 		photos = photos + [str(Photos.Query.get(PhotoID=photoid.PhotoID).Photo.url)]	
 	return photos
 	
-print getPhotos("1")
-
 #get Photo
 def getPhotos():
 	photos = {};
 	for photo in Photos.Query.all():
-		photos[photo.PhotoID] = photo.Photo.url
+		photos[str(photo.PhotoID)] = str(photo.Photo.url)
 	return photos
-	
-print getPhotos()
 	
 def getMinutes(duration):
     seconds = duration.seconds
@@ -86,8 +83,11 @@ def getUserCurve():
 	Time = ["Date Joined"]
 	Users = ["Number of Users"]
 	Volunteers = ["Number of Volunteers"]
+	ArtificialMonth = 3
+	
 	for user in User.Query.all().order_by("createdAt"):
-		Time = Time + [user.createdAt]
+		#Time = Time + [user.createdAt]
+		Time = Time + ["2015-0" + str(ArtificialMonth) + "-1"]
 		
 		count = 0
 		for time in User.Query.all():
@@ -100,7 +100,25 @@ def getUserCurve():
 			if time.createdAt.minute == user.createdAt.minute:
 				count = count + 1
 		Volunteers = Volunteers + [count]
+		ArtificialMonth = ArtificialMonth + 1
 	return [Time, Users, Volunteers]
+	
+#print getUserCurve()
+	
+def exportUserExcel(FileLocation):
+	#Create CSV File
+	csvfile = open(FileLocation, 'wb')
+	wr = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
+
+	for user in User.Query.all():
+		wr.writerow([user.Name,user.Email ,user.HomeAddress ,user.isVolunteer , user.Occupation])
+		
+	return FileLocation
+	
+exportUserExcel("test.csv")
+	
+	
+	
 	
 #print getUserCurve()
 	
