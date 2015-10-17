@@ -42,7 +42,12 @@ def findUsers(CampaignName):
 	for userid in userids:
 		users = chain(users, User.Query.all().filter(UserID=userid.UserID))
 	return users
-	
+
+def getallCampaigns():
+    return Campaign.Query.all()
+
+for campaign in getallCampaigns():
+    print(campaign.CampaignName)
 #for user in findUsers("TestCamp"):
 #	print(user.Email + " " + user.Name)
 	

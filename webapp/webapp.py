@@ -1,9 +1,11 @@
 from flask import Flask, render_template
+import ParseConnect
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
+    ParseConnect.getallCampaigns()
     return render_template('index.html')
 
 @app.route('/stats')
