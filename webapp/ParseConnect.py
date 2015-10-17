@@ -85,7 +85,7 @@ def getMinutes(duration):
 	
 #Users per month
 def getUserCurve():
-	Time = ["Date Joined"]
+	Time = ["x"]
 	Users = ["Number of Users"]
 	Volunteers = ["Number of Volunteers"]
 	ArtificialMonth = 3
