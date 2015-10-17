@@ -4,18 +4,26 @@
 <div class="campaigns">
     <h2>Campaigns</h2>
     <div class="row">
-        <div class="col s12 m6 l4">
-            <h4><a href="campaign/1">Indian Point Nuclear Plant</a></h4>
-            <img width="250" height="210" src="https://rocktheearth.org/mobius/rtewp-content/uploads/2015/10/800px-Indian_Point-250x210.jpg" class="attachment-homepage-thumb wp-post-image" alt="800px-Indian_Point" scale="0">
+        {% for campaign in campaigns %}
+         <div class="col s12 m6 l4">
+             <div class="card">
+                <div class="card-image">
+                  <img src="https://rocktheearth.org/mobius/rtewp-content/uploads/2015/10/800px-Indian_Point-250x210.jpg">
+                  <span class="card-title">{{ campaign.CampaignName }}</span>
+                </div>
+                <div class="card-content">
+                  <p>I am a very simple card. I am good at containing small bits of information.
+                  I am convenient because I require little markup to use effectively.</p>
+                </div>
+                <div class="card-action">
+                  <a href="campaign/{{ campaign.CampID }}">Learn More</a>
+                </div>
+              </div>
+
+{#            <h4><a href="campaign/{{ campaign.CampID }}">{{ campaign.CampaignName }}</a></h4>#}
+{#            <img width="250" height="210" src="https://rocktheearth.org/mobius/rtewp-content/uploads/2015/10/800px-Indian_Point-250x210.jpg" class="attachment-homepage-thumb wp-post-image" alt="800px-Indian_Point" scale="0">#}
         </div>
-        <div class="col s12 m6 l4">
-            <h4>Indian Point Nuclear Plant</h4>
-            <img width="250" height="210" src="https://rocktheearth.org/mobius/rtewp-content/uploads/2015/10/800px-Indian_Point-250x210.jpg" class="attachment-homepage-thumb wp-post-image" alt="800px-Indian_Point" scale="0">
-        </div>
-        <div class="col s12 m6 l4">
-            <h4>Indian Point Nuclear Plant</h4>
-            <img width="250" height="210" src="https://rocktheearth.org/mobius/rtewp-content/uploads/2015/10/800px-Indian_Point-250x210.jpg" class="attachment-homepage-thumb wp-post-image" alt="800px-Indian_Point" scale="0">
-        </div>
+        {% endfor %}
     </div>
 </div>
 </main>

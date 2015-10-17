@@ -5,8 +5,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    ParseConnect.getallCampaigns()
-    return render_template('index.html')
+    campaigns = ParseConnect.getallCampaigns()
+    return render_template('index.html', campaigns=campaigns)
 
 @app.route('/stats')
 def stats():
