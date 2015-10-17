@@ -1,44 +1,52 @@
 {% extends "base.html" %}
 {% block main %}
-    <div id="chart"></div>
-    <div class="users">
-      <table class="bordered">
-        <thead>
-          <tr>
-              <th data-field="id">Name</th>
-              <th data-field="name">Email</th>
-              <th data-field="price">State</th>
-          </tr>
-        </thead>
+    <div class="box">
+        <h3 class="captitle">Analytics</h3>
+        <div id="chart"></div>
+    </div>
+    <div class="box">
+       <h3 class="captitle">Download User Data</h3>
+        <a href="/static/data.csv" target="_blank" download="rtedata.csv">Export User Data</a>
+    </div>
+    <div class="box">
+        <h3 class="captitle">Campaign Status</h3>
+        <div class="users">
+          <table class="bordered">
+            <thead>
+              <tr>
+                  <th data-field="name">Campaign Name</th>
+                  <th data-field="num">Num of User</th>
+              </tr>
+            </thead>
 
-        <tbody>
-          <tr>
-            <td>Alvin</td>
-            <td>Eclair@gmail.com</td>
-            <td>NY</td>
-          </tr>
-          <tr>
-            <td>Alan</td>
-            <td>Jellybean@gmail.com</td>
-            <td>NJ</td>
-          </tr>
-          <tr>
-            <td>Jonathan</td>
-            <td>Lollipop@gmail.com</td>
-            <td>MA</td>
-          </tr>
-        </tbody>
-      </table>
+            <tbody>
+              {% for camp in campdata %}
+                  <tr>
+                    <td>{{ camp[0] }}</td>
+                    <td>{{ camp[1] }}</td>
+                  </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
     </div>
 {% endblock %}
 {% block script %}
     {{ super() }}
     <script>
-     var chart = c3.generate({
-        bindto: '#chart',
-        data: {
-          columns: {{ data }}
+    var chart = c3.generate({
+    data: {
+        x: 'x',
+        columns: {{ data|safe }}
+    },
+    axis: {
+        x: {
+            type: 'timeseries',
+            tick: {
+                format: '%Y-%m-%d'
+            }
         }
-    });
+    }
+});
     </script>
 {% endblock %}

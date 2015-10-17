@@ -12,7 +12,9 @@ def index():
 @app.route('/stats')
 def stats():
     data = ParseConnect.getUserCurve()
-    return render_template('stats.html', data=data)
+    ParseConnect.exportUserExcel('/Users/Alan/Desktop/rocktheearth/webapp/static/data.csv')
+    campdata = ParseConnect.campaignUserStat()
+    return render_template('stats.html', data=data, campdata=campdata)
 
 @app.route('/add')
 def add():
@@ -21,9 +23,8 @@ def add():
 @app.route('/campaign/<int:cid>')
 def campaign(cid):
     data = ParseConnect.getCampaigns(str(cid))
-    photos = ParseConnect.getPhotos1(str(cid))
+    photos = ParseConnect.getCampPhotos(str(cid))
     return render_template('campaign.html', data=data, photos=photos)
 
 if __name__ == '__main__':
-
     app.run()
