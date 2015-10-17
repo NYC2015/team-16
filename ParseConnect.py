@@ -74,6 +74,8 @@ def getPhotos():
 		photos[photo.PhotoID] = photo.Photo
 	return photos
 	
+print getPhotos()["1"]
+	
 def getMinutes(duration):
     seconds = duration.seconds
     minutes = (seconds % 3600) // 60
@@ -100,7 +102,7 @@ def getUserCurve():
 		Volunteers = Volunteers + [count]
 	return [Time, Users, Volunteers]
 	
-print getUserCurve()
+#print getUserCurve()
 	
 #print(getPhotos()["1"])
 	
