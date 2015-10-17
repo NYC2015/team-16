@@ -1,18 +1,31 @@
 {% extends "base.html" %}
 {% block main %}
+    <div class="box">
     <div class="row">
-        <div class="col 6 offset-s3">
+        <div class="col s12 m6">
             <div class="campaign">
-                <h2>{{ data.CampaignName }}</h2>
-                <img width="500" height="420" src="https://rocktheearth.org/mobius/rtewp-content/uploads/2015/10/800px-Indian_Point-250x210.jpg" class="attachment-homepage-thumb wp-post-image" alt="800px-Indian_Point" scale="0">
+                <h3 class="captitle">{{ data.CampaignName }}</h3>
+                <img width="90%" height="420" src="https://rocktheearth.org/mobius/rtewp-content/uploads/2015/10/800px-Indian_Point-250x210.jpg" class="attachment-homepage-thumb wp-post-image" alt="800px-Indian_Point" scale="0">
                 <p>{{ data.Description }}</p>
             </div>
+        </div>
+        <div class="col s12 m6">
             <div class="photos">
-                <h2>Supporters</h2>
-                <div class="photo">
-                    <img width="250" height="210" src="https://rocktheearth.org/mobius/rtewp-content/uploads/2015/10/800px-Indian_Point-250x210.jpg" class="attachment-homepage-thumb wp-post-image" alt="800px-Indian_Point" scale="0">
-                </div>
+                 <h3 class="captitle">Feed/Supporters</h3>
+                {% for photo in photos %}
+                    <div class="col s12 m5">
+                      <div class="card small">
+                        <div class="card-image">
+                          <img src="{{ photo }}">
+                        </div>
+                        <div class="card-action">
+                          <a href="#">Share</a>
+                        </div>
+                      </div>
+                    </div>
+                {% endfor %}
             </div>
         </div>
+    </div>
     </div>
 {% endblock %}
