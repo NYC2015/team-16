@@ -103,8 +103,6 @@ def getUserCurve():
 		ArtificialMonth = ArtificialMonth + 1
 	return [Time, Users, Volunteers]
 	
-#print getUserCurve()
-	
 def exportUserExcel(FileLocation):
 	#Create CSV File
 	csvfile = open(FileLocation, 'wb')
@@ -113,17 +111,19 @@ def exportUserExcel(FileLocation):
 	for user in User.Query.all():
 		wr.writerow([user.Name,user.Email ,user.HomeAddress ,user.isVolunteer , user.Occupation])
 		
-	return csvfile
+	return FileLocation
 	
-print dir(exportUserExcel("test.csv"))
+#print dir(exportUserExcel("test.csv"))
 	
-	
-#print getUserCurve()
-	
-#print(getPhotos()["1"])
-	
+def campaignUserStat():
+	campaigns = Campaign.Query.all()
+	numUsers = []
+	for campaign in campaigns:
+		numUsers = numUsers + [[str(campaign.CampID), len(list(UsertoCampaign.Query.all().filter(CampaignID = campaign.CampID)))]]
 
-	
+	return numUsers
+
+print campaignUserStat()
 #for photo in getPhotos("TestCamp"):
 #	print(photo.Photo)
 	
