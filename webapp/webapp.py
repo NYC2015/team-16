@@ -12,6 +12,10 @@ def index():
 def stats():
     return render_template('stats.html')
 
+@app.route('/add')
+def add():
+    return render_template('add.html')
+
 @app.route('/campaign/<int:cid>')
 def campaign(cid):
     data = ParseConnect.getCampaign(str(cid))
