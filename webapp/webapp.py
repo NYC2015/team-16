@@ -23,8 +23,8 @@ def add():
 @app.route('/campaign/<int:cid>')
 def campaign(cid):
     data = ParseConnect.getCampaigns(str(cid))
-    photos = ParseConnect.getCampPhotos(str(cid))
-    return render_template('campaign.html', data=data, photos=photos)
+    photo = ParseConnect.getCampaignPhoto(str(cid))
+    return render_template('campaign.html', data=data, photo=photo)
 
 if __name__ == '__main__':
     app.run()
