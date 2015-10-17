@@ -66,6 +66,10 @@ def getCampPhotos(campaignID):
 		photos = photos + [str(Photos.Query.get(PhotoID=photoid.PhotoID).Photo.url)]	
 	return photos
 	
+def getCampaignPhoto(campID):
+	return Photos.Query.get(PhotoID=campID).Photo.url
+	
+print getCampaignPhoto("3")
 #get Photo
 def getPhotos():
 	photos = {};
@@ -104,7 +108,7 @@ def getUserCurve():
 		ArtificialMonth = ArtificialMonth + 1
 	return [Time, Users, Volunteers]
 	
-print getUserCurve()
+#print getUserCurve()
 	
 #Convert User Class data into CSV File
 def exportUserExcel(FileLocation):
@@ -127,7 +131,8 @@ def campaignUserStat():
 
 	return numUsers
 	
-print campaignUserStat()
+for campaign in campaignUserStat():
+	print campaign[0]
 
 
 #addUser("1", "Test", "email", "address", True ,"Lawyer")
