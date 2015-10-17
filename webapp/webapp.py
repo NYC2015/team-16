@@ -4,12 +4,20 @@ import ParseConnect
 
 app = Flask(__name__)
 
+def convert_keys_to_string(dictionary):
+    """Recursively converts dictionary keys to strings."""
+    if not isinstance(dictionary, dict):
+        return dictionary
+    return dict((str(k), convert_keys_to_string(v))
+        for k, v in dictionary.items())
+
 @app.route('/')
 def index():
     campaigns = ParseConnect.getAllCampaigns()
-    #photos = ParseConnect.getPhotos()
-    path = "../static/images/"
-    return render_template('index.html', campaigns=campaigns, path=path, photos="banner.jpg")
+    photos = ParseConnect.getPhotos()
+    #photos =  convert_keys_to_string(photos)
+    print photos
+    return render_template('index.html', campaigns=campaigns, photos=photos)
 
 @app.route('/stats')
 def stats():

@@ -71,7 +71,7 @@ def getPhotosOld(campaignID):
 def getPhotos():
 	photos = {};
 	for photo in Photos.Query.all():
-		photos[photo.PhotoID] = photo.Photo
+		photos[str(photo.PhotoID)] = str(photo.Photo.url)
         #print photo.PhotoID
 	return photos
 	
