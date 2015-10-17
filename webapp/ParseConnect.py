@@ -46,18 +46,17 @@ def findUsers(CampaignName):
 		users = chain(users, User.Query.all().filter(UserID=userid.UserID))
 	return users
 
-<<<<<<< HEAD:ParseConnect.py
 #Get All Campaigns
 def getAllCampaigns():
 	return Campaign.Query.all()
 
 #Get Campaign
-def getCampaigns(CampaignName):
-	return Campaign.Query.get(CampaignName=CampaignName)
+def getCampaign(campid):
+	return Campaign.Query.get(CampID=campid)
 
 #getPhotos	
-def getPhotos(CampaignName):
-	campid = Campaign.Query.get(CampaignName=CampaignName).CampID
+def getPhotos(campid):
+	#campid = Campaign.Query.get(CampaignName=CampaignName).CampID
 	photoids = UsertoCampaign.Query.all().filter(CampaignID=campid)
 	photos = []
 	
@@ -68,17 +67,11 @@ def getPhotos(CampaignName):
 	
 #for photo in getPhotos("TestCamp"):
 #	print(photo.Photo)
-=======
-def getallCampaigns():
-    return Campaign.Query.all()
-
-for campaign in getallCampaigns():
-    print(campaign.CampaignName)
-#for user in findUsers("TestCamp"):
-#	print(user.Email + " " + user.Name)
->>>>>>> e6d34b37394bd36fe66fa318e5783e9cb8d11b56:webapp/ParseConnect.py
 	
 #count
+
+print getCampaign("1")
+
 
 #addUser("1", "Test", "email", "address", True ,"Lawyer")
 #addCampaign("3", "TestCamp", datetime.datetime(2011, 9, 16, 21, 51, 36, 784000) , "URL" ,"4")
