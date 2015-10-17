@@ -1,4 +1,5 @@
 import datetime
+from itertools import chain
 from parse_rest.connection import register, ParseBatcher
 # Alias the Object type to make clear is not a normal python Object
 from parse_rest.datatypes import Object as ParseObject
@@ -36,11 +37,14 @@ def addCampaign(CampID, CampaignName, StartDate, CampaignURL, DefaultPhoto):
 #find users
 def findUsers(CampaignName):
 	campid = Campaign.Query.get(CampaignName=CampaignName).CampID
-	userids = UsertoCampaign.Query.get(CampaignID=campid).UserID
-	#users = User.Query.all()
-	return len(userids)
+	userids = UsertoCampaign.Query.all().filter(CampaignID=campid)
+	users = []
+	for userid in userids:
+		users = chain(users, User.Query.all().filter(UserID=userid.UserID))
+	return users
 	
-print(findUsers("TestCamp"))
+#for user in findUsers("TestCamp"):
+#	print(user.Email + " " + user.Name)
 	
 #count
 
