@@ -17,6 +17,9 @@ class Campaign(ParseObject):
 	
 class UsertoCampaign(ParseObject):
     pass
+	
+class Photos(ParseObject):
+    pass
 
 register(APPLICATION_ID, REST_API_KEY)
 
@@ -42,9 +45,28 @@ def findUsers(CampaignName):
 	for userid in userids:
 		users = chain(users, User.Query.all().filter(UserID=userid.UserID))
 	return users
+
+#Get All Campaigns
+def getAllCampaigns():
+	return Campaign.Query.all()
+
+#Get Campaign
+def getCampaigns(CampaignName):
+	return Campaign.Query.get(CampaignName=CampaignName)
+
+#getPhotos	
+def getPhotos(CampaignName):
+	campid = Campaign.Query.get(CampaignName=CampaignName).CampID
+	photoids = UsertoCampaign.Query.all().filter(CampaignID=campid)
+	photos = []
 	
-#for user in findUsers("TestCamp"):
-#	print(user.Email + " " + user.Name)
+	for photoid in photoids:
+		photos = chain(photos, Photos.Query.all().filter(PhotoID=photoid.PhotoID))
+		
+	return photos
+	
+#for photo in getPhotos("TestCamp"):
+#	print(photo.Photo)
 	
 #count
 
