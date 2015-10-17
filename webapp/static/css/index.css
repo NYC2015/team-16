@@ -11,10 +11,6 @@ nav {
     background-color: #388e3c;
 }
 
-.users {
-    margin-top: 50px;
-}
-
 .photo {
     margin: 20px;
 }
@@ -30,4 +26,8 @@ nav {
 .box {
     width: 90%;
     margin: 0 auto;
+}
+
+table {
+    margin-bottom: 50px;
 }

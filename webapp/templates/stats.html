@@ -1,40 +1,31 @@
 {% extends "base.html" %}
 {% block main %}
     <div class="box">
-        <h3>Analytics</h3>
+        <h3 class="captitle">Analytics</h3>
         <div id="chart"></div>
     </div>
     <div class="box">
-       <h3>Analytics</h3>
+       <h3 class="captitle">Download User Data</h3>
         <a href="/static/data.csv" target="_blank" download="rtedata.csv">Export User Data</a>
     </div>
     <div class="box">
+        <h3 class="captitle">Campaign Status</h3>
         <div class="users">
           <table class="bordered">
             <thead>
               <tr>
-                  <th data-field="id">Name</th>
-                  <th data-field="name">Email</th>
-                  <th data-field="price">State</th>
+                  <th data-field="name">Campaign Name</th>
+                  <th data-field="num">Num of User</th>
               </tr>
             </thead>
 
             <tbody>
-              <tr>
-                <td>Alvin</td>
-                <td>Eclair@gmail.com</td>
-                <td>NY</td>
-              </tr>
-              <tr>
-                <td>Alan</td>
-                <td>Jellybean@gmail.com</td>
-                <td>NJ</td>
-              </tr>
-              <tr>
-                <td>Jonathan</td>
-                <td>Lollipop@gmail.com</td>
-                <td>MA</td>
-              </tr>
+              {% for camp in campdata %}
+                  <tr>
+                    <td>{{ camp[0] }}</td>
+                    <td>{{ camp[1] }}</td>
+                  </tr>
+              {% endfor %}
             </tbody>
           </table>
         </div>

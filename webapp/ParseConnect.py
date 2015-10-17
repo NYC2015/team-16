@@ -1,15 +1,15 @@
+
 import datetime
 import csv
 from itertools import chain
 from parse_rest.connection import register, ParseBatcher
-# Alias the Object type to make clear is not a normal python Object
 from parse_rest.datatypes import Object as ParseObject
 
+#Keys should be in an encrypted file
 APPLICATION_ID = "FOFAbDih2YL3jY6ikLz6LVnhMTybzRrITbDhsqIL"
 REST_API_KEY = "REWlCz5BOe7cXJEZaNHcu2g6PgGTeR0hxFrk8GQz"
 
-#Keys
-
+#User Objects
 class User(ParseObject):
     pass
 	
@@ -24,10 +24,12 @@ class Photos(ParseObject):
 
 register(APPLICATION_ID, REST_API_KEY)
 
+#Save to Parse
 def saveToParse(anyObject):
     anyObject.save()
     print "Done!"
 
+#Add User
 def addUser(UserID, Name, Email, HomeAddress, isVolunteer, Occupation):
     user = User(**locals())
     saveToParse(user)
@@ -38,7 +40,7 @@ def addCampaign(CampID, CampaignName, StartDate, CampaignURL, DefaultPhoto):
     campaign = Campaign(**locals())
     saveToParse(campaign)
 
-#find users
+#Find Users
 def findUsers(campaignName):
 	#campid = Campaign.Query.get(CampaignName=CampaignName).CampID
 	userids = UsertoCampaign.Query.all().filter(CampaignID=campaignName)
@@ -51,13 +53,11 @@ def findUsers(campaignName):
 def getAllCampaigns():
 	return Campaign.Query.all()
 
-#Get Campaign
+#Get Campaign given ID
 def getCampaigns(ID):
 	return Campaign.Query.get(CampID = ID)
-	
-#print getCampaigns("2")
 
-#getPhotos	
+#Get all Photos with corresponding Campaign	
 def getCampPhotos(campaignID):
 	photoids = UsertoCampaign.Query.all().filter(CampaignID=campaignID)
 	photos = []
@@ -73,12 +73,13 @@ def getPhotos():
 		photos[str(photo.PhotoID)] = str(photo.Photo.url)
 	return photos
 	
+#Get Minutes given DateTime Object
 def getMinutes(duration):
     seconds = duration.seconds
     minutes = (seconds % 3600) // 60
     return minutes
 	
-#Return
+#Users per month
 def getUserCurve():
 	Time = ["x"]
 	Users = ["Number of Users"]
@@ -103,32 +104,27 @@ def getUserCurve():
 		ArtificialMonth = ArtificialMonth + 1
 	return [Time, Users, Volunteers]
 	
-#print getUserCurve()
-	
+#Convert User Class data into CSV File
 def exportUserExcel(FileLocation):
 	#Create CSV File
 	csvfile = open(FileLocation, 'wb')
 	wr = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
-
+	wr.writerow(["Name","Email" ,"Home Address", "Volunteer" , "Occupation"])
+	
 	for user in User.Query.all():
 		wr.writerow([user.Name,user.Email ,user.HomeAddress ,user.isVolunteer , user.Occupation])
 		
 	return FileLocation
 
-	
-	
-	
-	
-#print getUserCurve()
-	
-#print(getPhotos()["1"])
-	
+#Return number of users per campaign
+def campaignUserStat():
+	campaigns = Campaign.Query.all()
+	numUsers = []
+	for campaign in campaigns:
+		numUsers = numUsers + [[str(campaign.CampaignName), len(list(UsertoCampaign.Query.all().filter(CampaignID = campaign.CampID)))]]
 
-	
-#for photo in getPhotos("TestCamp"):
-#	print(photo.Photo)
-	
-#count
+	return numUsers
+
 
 #addUser("1", "Test", "email", "address", True ,"Lawyer")
 #addCampaign("3", "TestCamp", datetime.datetime(2011, 9, 16, 21, 51, 36, 784000) , "URL" ,"4")

@@ -13,7 +13,8 @@ def index():
 def stats():
     data = ParseConnect.getUserCurve()
     ParseConnect.exportUserExcel('/Users/Alan/Desktop/rocktheearth/webapp/static/data.csv')
-    return render_template('stats.html', data=data)
+    campdata = ParseConnect.campaignUserStat()
+    return render_template('stats.html', data=data, campdata=campdata)
 
 @app.route('/add')
 def add():
